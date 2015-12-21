@@ -1,8 +1,3 @@
-<!doctype html>
-<html>
-<head>
-</head>
-
 <?php
 
 $conn = mysql_connect("localhost", "DBFinal_user", "userpass");
@@ -15,13 +10,38 @@ mysql_select_db("DBFinal", $conn);
 include "conf.php";
 include "open.php";
 
+header('Content-Type: application/json');
+$aResult = array();
 
-$statename = $_POST["!!!!Where to get state name!!!"]; //Fill in!!!!!
+switch ($_POST['functionname']) {
+	case 'hover' :
+		$statename = $_POST["arguments"][0];
 
-$query = "SELECT * FROM State WHERE StateName='$statename';"; 
+		$query = "SELECT Name, Population FROM State WHERE Name='$statename';"; 
+		$result = mysql_query($query);
+		if(!$result) { 
+			$aResult['error'] = mysql_error(); 
+		} else {
+			$row = mysql_fetch_assoc($result);	
+			$aResult['result'] = $row;
+		}
+		break;
 
-$result = mysql_query($query);
-if(!$result) { console.log(mysql_error()); }
+//	case "click":
+	default:
+		$aResult['error'] = "Hit Default with " . $_POST_['funtionname'];
+		break;
+
+}
+
+echo json_encode($aResult);
+
+//$statename = $_POST["arg1"]; 
+
+//$query = "SELECT StateName, Population FROM State WHERE StateName='$statename';"; 
+
+//$result = mysql_query($query);
+//if(!$result) { console.log(mysql_error()); }
 
 
 /*
@@ -40,4 +60,3 @@ foreach ($multiquery as $subquery)
 
 mysql_close($conn);
 ?>
-</html>

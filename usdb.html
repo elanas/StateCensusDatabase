@@ -57,6 +57,17 @@
 		<h5 class="select-text"> SELECT </h2>
                 <select id="query-selector">
                     <option value="Name">Name</option>
+		    <option value="Population">Population</option>
+                    <option value="MedianIncome">Median Income</option>
+                    <option value="NumWhite">Number of Whites</option>
+                    <option value="NumBlack">Number of Blacks</option>
+                    <option value="NumHispanic">Number of Hispanics</option>
+                    <option value="NumAsian">Number of Asians</option>
+                    <option value="NumPoverty">Number in Poverty</option>
+                    <option value="MedianAge">Median Age</option>
+                    <option value="NumBachelors">Number of Bachelors</option>
+                    <option value="NumUnemployed">Number of Unemployed</option>
+
                 </select>
 		<h5 class="select-text"> FROM </h5>
 		<select id="from-selector">
@@ -82,10 +93,10 @@
 		<form action="" method="POST">
 			<input type="text" id="num-input" name="num" value=5000000>
 		</form>
-		<a href="javascript:;" onclick="submitQuery()" class="myButton">Submit</a>
 		
         </div>
 
+		<a href="javascript:;" onclick="submitQuery()" class="myButton">Submit</a>
 	<div id="query-answer"></div>
 
 

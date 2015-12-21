@@ -85,10 +85,11 @@ function submitQuery() {
 
 	var from = $('#from-selector option:selected').val()
 
-	if(select == "ID") {
-		select = from + select
+	if (select != "Name") {
+		select = "Name" + ", " + select
+	} else {
+		select = select + ", " + "''"
 	}
-
 	queryString += select
 	queryString += " FROM "
 	queryString += from
@@ -121,7 +122,6 @@ function submitQuery() {
 	queryString += num
 
 	queryString += ";"
-	
 	$.ajax({
                 type: "POST",
                 url: 'usdbstate.php',
@@ -136,8 +136,13 @@ function submitQuery() {
 					//answerString += "( ";
 					console.log(obj.result[i])
 					console.log("Keys: " + Object.keys(obj.result[i]).length)
-					for(c = 0; c < 1; c++) {i
-						answerString += obj.result[i]["Name"]
+					for(c = 0; c < 1; c++) {
+						answerString += obj.result[i][0]
+						if (obj.result[i][1] != '') {
+							answerString += ": " + numberWithCommas(obj.result[i][1])
+						} else {
+							answerString += ""
+						}
 					}
 					//answerString += "), "
 					answerString += ", "

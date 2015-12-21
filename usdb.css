@@ -88,7 +88,7 @@ body {
 	background-color: orange;
 	opacity: 0.8;
         top: 680px;
-	width: 900px;
+	width: 1000px;
 	margin-left: 20px;
 	height: 40px;
 	border-radius: 6px;
@@ -109,25 +109,20 @@ form {
 
 .myButton {
 	background-color:orange;
-	-moz-border-radius:28px;
-	-webkit-border-radius:28px;
 	border-radius:28px;
 	border:1px solid orange;
-	display:inline-block;
 	color:#ffffff;
 	font-family:Arial;
 	font-size:17px;
 	padding:16px 31px;
-	text-decoration:none;
 	text-shadow:0px 1px 0px darkorange;
-	margin-top: 30px;
+	position: absolute;
+	top: 740px;
+	left: 20px;
+	text-decoration: none;
 }
 .myButton:hover {
 	background-color:red;
-}
-.myButton:active {
-	position:relative;
-	top:1px;
 }
 
 

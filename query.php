@@ -16,14 +16,15 @@ include "conf.php";
 include "open.php";
 
 
-$query = $_POST["state-text"];
+$query = $_POST["querytext"];
+$multiquery = explode(";", $query);
 
-echo $query;
 
-$result = mysql_query("$query");
-$row=mysql_fetch_array($result);
-if($row["Error Message"]) {echo "BAAAAADDDDDD!!!!";}
-else { echo "idk";}
+foreach ($multiquery as $subquery)
+{
+	$result = mysql_query($subquery);
+	if(!$result) {echo $subquery . ":<br>" . mysql_error() . "<br><br>"; }
+}
 
 mysql_close($conn);
 ?>

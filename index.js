@@ -34,19 +34,25 @@ function JSON2CSV(objArray) {
     
 }
 
-function parseForDatabase(response, tablename) {
+function parseForDatabase(response, tablename, city) {
         var data = JSON.stringify(response.data)
         var csv = JSON2CSV(response.data);
 
-        var dataArray = csv.split("\n")
 
+        var dataArray = csv.split("\n")
         for (x = 0; x < dataArray.length; x++) {
             var row = dataArray[x].split(",")
-
+            
+	    if(city) {
+	        row.unshift(response.county);
+    	        row.unshift(response.state);
+    	        row.unshift(response.place_name);
+    	        row.unshift(response.place);
+	    }
             var newString = "insert into " + tablename + " values (";
 
             for (y = 0; y < row.length; y++) {
-                row[y] = row[y].replace("'","/'");
+                row[y] = row[y].replace("'","''");
 		row[y] = "'" + row[y] +"'"
             }
 
@@ -56,7 +62,6 @@ function parseForDatabase(response, tablename) {
             dataArray[x] = newString
         }
 	var sqlString = dataArray.join("\n")
-	console.log(sqlString)
 	return sqlString
 }
 
@@ -66,6 +71,7 @@ function submitState() {
     // var apiKey = prompt("Please enter your Census API Key", "API key");
     census.enable("be0ca37c77bd4d4d073f912c7fc535d13855f274");
 
+           $('#state-text').val("");
 
     var request = {
         variables: [
@@ -90,34 +96,11 @@ function submitState() {
     
     census.APIRequest(request, function(response) {
 	
-	var sqlString = parseForDatabase(response, "State")       
-        //var data = JSON.stringify(response.data)
-        //var csv = JSON2CSV(response.data);
+	var sqlString = parseForDatabase(response, "State", false)       
 
-        //var dataArray = csv.split("\n")
-
-        //for (x = 0; x < dataArray.length; x++) {
-        //    var row = dataArray[x].split(",")
-
-        //    var newString = "insert into State values (";
-
-        //    for (y = 0; y < row.length; y++) {
-        //        row[y] = row[y].replace("'","/'");
-	//	row[y] = "'" + row[y] +"'"
-        //    }
-
-        //    newString += row.join()
-        //    newString += ");"
-
-        //    dataArray[x] = newString
-        //}
-	//var sqlString = dataArray.join("\n")
-	//console.log(sqlString)
-
-	var output = $('#state-output');
+	var output = $('#state-output')
 	//output.width(400).height(600);
 	//output.css('overflow','hidden');
-	$('.block').css('display','inline-block');
 	//output.append(sqlString);
 	
 	$('#state-text').val(sqlString);
@@ -130,64 +113,101 @@ function submitCounty() {
     census = sdk.modules.census;
     // var apiKey = prompt("Please enter your Census API Key", "API key");
     census.enable("be0ca37c77bd4d4d073f912c7fc535d13855f274");
-
+           $('#county-text').val("");
+    var counties = "";
     for(state in census.stateCapitals) {
-	console.log(state)
-	console.log("*");
-    }
+        
+       var request = {
+           variables: [
+               "population",
+               "income",
+               "population_white_alone",
+               "population_black_alone",
+               "population_hispanic_origin",
+               "population_asian_alone",
+               "population_other_alone",
+               "poverty",
+               "age",
+               "education_bachelors",
+               "education_masters",
+               "education_professional",
+               "education_doctorate",
+               "employment_unemployed"
+           ],
+	   level: "state",
+           sublevel: "true",
+	   state: state
+       }
+       
+       census.APIRequest(request, function(response) {
+          var sqlString = parseForDatabase(response,"County", false);
+          counties+=sqlString 
+	  var output = $('#county-output');
+           //output.width(400).height(600);
+           //output.css('overflow','hidden');
+           //output.append(sqlString);
+           
+           $('#county-text').val(counties);
 
-//    var request = {
-//        variables: [
-//            "population",
-//            "income",
-//	    "population_white_alone",
-//            "population_black_alone",
-//            "population_hispanic_origin",
-//            "population_asian_alone",
-//            "population_other_alone",
-//            "poverty",
-//            "age",
-//            "education_bachelors",
-//            "education_masters",
-//            "education_professional",
-//            "education_doctorate",
-//	    "employment_unemployed"
-//        ],
-//        level: "us",
-//        sublevel: "true"
-//    }
-//    
-//    census.APIRequest(request, function(response) {
-//       
-//        var data = JSON.stringify(response.data)
-//        var csv = JSON2CSV(response.data);
-//
-//        var dataArray = csv.split("\n")
-//
-//        for (x = 0; x < dataArray.length; x++) {
-//            var row = dataArray[x].split(",")
-//
-//            var newString = "insert into State values (";
-//
-//            for (y = 0; y < row.length; y++) {
-//                row[y] = '"' + row[y] +'"'
-//            }
-//
-//            newString += row.join()
-//            newString += ");"
-//
-//            dataArray[x] = newString
-//        }
-//	var sqlString = dataArray.join("\n")
-//	console.log(sqlString)
-//
-//	var output = $('#state-output');
-//	//output.width(400).height(600);
-//	//output.css('overflow','hidden');
-//	$('.block').css('display','inline-block');
-//	//output.append(sqlString);
-//	
-//	$('#state-text').val(sqlString);
-//    });
+       });
+   
+    }
 }
-submitState()
+
+
+function submitCity() {
+    sdk = new CitySDK();
+    census = sdk.modules.census;
+    // var apiKey = prompt("Please enter your Census API Key", "API key");
+    census.enable("be0ca37c77bd4d4d073f912c7fc535d13855f274");
+           //$('#city-text').val("");
+    var cities = ""
+    for(state in census.stateCapitals) {
+	var lat = census.stateCapitals[state][0].toString()
+	var lng = census.stateCapitals[state][1].toString()
+       
+	//console.log(lat + ", " + lng)
+
+ 
+	var request = {
+           variables: [
+               "population",
+               "income",
+               "population_white_alone",
+               "population_black_alone",
+               "population_hispanic_origin",
+               "population_asian_alone",
+               "population_other_alone",
+               "poverty",
+               "age",
+               "education_bachelors",
+               "education_masters",
+               "education_professional",
+               "education_doctorate",
+               "employment_unemployed"
+           ],
+	 level: "place",
+	 sublevel: "false",
+         lat: lat,
+         lng: lng,
+	}
+       
+       census.APIRequest(request, function(response) {
+	   var sqlString = parseForDatabase(response,"City", true);
+           //console.log(sqlString)
+           cities += sqlString
+	   var output = $('#city-output');
+           //output.width(400).height(600);
+           //output.css('overflow','hidden');
+           //output.append(sqlString);
+           
+           $('#city-text').val(cities);
+       });
+   
+   }
+}
+
+
+//submitState()
+//submitCounty()
+//submitCity()

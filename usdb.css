@@ -28,24 +28,37 @@ body {
 }
 
 #clicked-div {
+	width: 900px;
+	height:180px;
 	position: absolute;
-	top: 600px;
+	top: 455px;
         background-color: white;
         border-radius: 3px;
         opacity: 0.8;
 	margin-left: 20px;
 }
 
+#builder-text {
+	width: 900px;
+	
+	position: absolute;
+	top: 660px;
+	margin-left: 24px;
+	font-size: 13px;
+}
+
 #query-answer {
-	background-color: green;
+	background-color: orange;
 	opacity: 0.7;
 	position: absolute;
-	top: 1080px;
+	top: 820px;
 	margin-left: 20px;
 	width: 900px;
-	height: 200px;
+	height: 150px;
 	border-radius: 6px;
 	margin-bottom: 100px;
+	padding: 15px;
+	overflow: auto;
 }
 
 #click-state {
@@ -68,9 +81,9 @@ body {
 
 #query-builder {
 	position: absolute;
-	background-color: green;
+	background-color: orange;
 	opacity: 0.8;
-        top: 900px;
+        top: 680px;
 	width: 900px;
 	margin-left: 20px;
 	height: 40px;
@@ -91,25 +104,22 @@ form {
 }
 
 .myButton {
-	background-color:#44c767;
+	background-color:orange;
 	-moz-border-radius:28px;
 	-webkit-border-radius:28px;
 	border-radius:28px;
-	border:1px solid #18ab29;
+	border:1px solid orange;
 	display:inline-block;
-	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
 	font-size:17px;
 	padding:16px 31px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #2f6627;
-	position: absolute;
-	left: 0px;
-	top: 60px;
+	text-shadow:0px 1px 0px darkorange;
+	margin-top: 30px;
 }
 .myButton:hover {
-	background-color:#5cbf2a;
+	background-color:red;
 }
 .myButton:active {
 	position:relative;

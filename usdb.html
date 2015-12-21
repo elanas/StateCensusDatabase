@@ -11,15 +11,15 @@
 
 <body>
 	<div id="map-row">
-	    <div id="map" style="width: 800px; height: 600px;"></div>
-	    <div id="hover-div" style="width: 200px; height: 200px;">
+	    <div id="map" style="width: 600px; height: 550px;"></div>
+	    <div id="hover-div" style="width: 200px; height: 150px;">
 		<div class="hover-text" id="hover-state"> </div>
 		<div class="hover-text" id="hover-pop"> </div>
 
 	    </div>
 	</div>
-	<div id="clicked-div" style="width: 900px; height: 200px;">
-	     <div class="click-text" id="click-state"></div>
+	<div id="clicked-div">
+	     <div class="click-text" id="click-state">Click on a state to see its statistics</div>
              <table id="state-table" style="width:90%">
                 <tr>
                   <td id="r1"></td>
@@ -49,11 +49,11 @@
             </table>
 	</div>
 
+	<div id="builder-text"> Query Builder </div> 
  	<div id="query-builder">
 		<h5 class="select-text"> SELECT </h2>
                 <select id="query-selector">
                     <option value="Name">Name</option>
-                    <option value="ID">ID</option>
                 </select>
 		<h5 class="select-text"> FROM </h5>
 		<select id="from-selector">
@@ -77,7 +77,7 @@
 		</select>
 
 		<form action="" method="POST">
-			<input type="text" id="num-input" name="num" value=50>
+			<input type="text" id="num-input" name="num" value=5000000>
 		</form>
 		<a href="javascript:;" onclick="submitQuery()" class="myButton">Submit</a>
 		

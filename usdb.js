@@ -12,7 +12,6 @@ $(document).ready(function() {
 	                      if( !('error' in obj) ) {
 	                          $('#hover-state').text(obj.result.Name);
 				  $('#hover-pop').text("Population: " + numberWithCommas(obj.result.Population));
-	 			  console.log(obj.result)
 	                      }
 	                      else {
 	                          console.log(obj.error);
@@ -38,7 +37,7 @@ $(document).ready(function() {
 	                      if( !('error' in obj) ) {
 				  $('table').css("visibility", "visible")
 				  $('#click-state').text(obj.result.Query1);
-				  	$('#r1').text("Population: " + obj.result.Query2)
+				  	$('#r1').text("Population: " + numberWithCommas(obj.result.Query2))
 				 	$('#r2').text("Percent White: " + obj.result.Query3 + "%")
 				 	$('#r3').text("Percent Black: " + obj.result.Query4 + "%")
 				 	$('#r4').text("Percent Hispanic: " + obj.result.Query5 + "%")
@@ -118,28 +117,38 @@ function submitQuery() {
 	queryString += num
 
 	queryString += ";"
-	console.log(queryString)
 	
-	//$.ajax({
-        //        type: "POST",
-        //        url: 'usdbstate.php',
-        //        dataType: 'json',
-        //        data: {functionname: 'custom', arguments: [stateDict[data.name]]},
+	$.ajax({
+                type: "POST",
+                url: 'usdbstate.php',
+                dataType: 'json',
+                data: {functionname: 'custom', arguments: [queryString]},
 
-        //        success: function (obj) {
-        //                      if( !('error' in obj) ) {
-        //                          $('#query-answer').text(obj.result.Answer);
-        //                          console.log(obj.result)
-        //                      }
-        //                      else {
-        //                          console.log(obj.error);
-        //                          console.log("err")
-        //                      }
-        //        }, error: function (err) {
-        //                console.log(err.responseText)
-        //                console.log("error not success")
-        //        }
-        //    });
+                success: function (obj) {
+                              if( !('error' in obj) ) {
+				var answerString = "";
+                                  $('#query-answer').text(obj.result.Answer);
+				  for(i = 0; i < obj.result.length; i++) {
+					//answerString += "( ";
+					for(c = 0; c < 1; c++) {i
+						answerString += obj.result[i]["Name"]
+					}
+					//answerString += "), "
+					answerString += ", "
+				  }
+				console.log(answerString)
+				$('#query-answer').text(answerString)
+                              }
+                              else {
+                                  console.log(obj.error);
+                                  console.log("err")
+                              }
+                }, error: function (err) {
+                        console.log(err)
+                        console.log("error not success")
+			$('#query-answer').text("Sample size too big. Please try a query with smaller bounds.")
+                }
+            });
 
 	
 }

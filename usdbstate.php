@@ -27,6 +27,20 @@ switch ($_POST['functionname']) {
 		}
 		break;
 
+	case 'custom' :
+		$query = $_POST["arguments"][0]; 
+		$result = mysql_query($query);
+		if(!$result) { 
+			$aResult['error'] = mysql_error(); 
+		} else {
+			//$row = mysql_fetch_assoc($result);	
+			$aResult['result'] = array();
+			while($row = mysql_fetch_array($result)) {
+				$aResult['result'][] = $row;
+			}
+		}
+		break;
+
 	case 'click':
 		$statename = $_POST["arguments"][0];
 		$querylist = array(

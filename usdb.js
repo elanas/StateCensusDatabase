@@ -36,7 +36,7 @@ $(document).ready(function() {
 	    
 	        success: function (obj) {
 	                      if( !('error' in obj) ) {
-	 			  console.log(obj.result)
+				  $('table').css("visibility", "visible")
 				  $('#click-state').text(obj.result.Query1);
 				  	$('#r1').text("Population: " + obj.result.Query2)
 				 	$('#r2').text("Percent White: " + obj.result.Query3 + "%")

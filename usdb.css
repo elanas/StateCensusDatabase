@@ -33,9 +33,7 @@ body {
         background-color: white;
         border-radius: 3px;
         opacity: 0.8;
-        left:50%;
-        margin-left: -400px;
-
+	margin-left: 20px;
 }
 
 #query-answer {
@@ -43,11 +41,11 @@ body {
 	opacity: 0.7;
 	position: absolute;
 	top: 1080px;
-	left: 50%;
-	margin-left: -300px;
-	width: 600px;
+	margin-left: 20px;
+	width: 900px;
 	height: 200px;
 	border-radius: 6px;
+	margin-bottom: 100px;
 }
 
 #click-state {
@@ -60,6 +58,7 @@ body {
 	margin: auto;
 	margin-top: 15px;
 	border: 1px solid black;
+	visibility: hidden;
 }
 
 #state-table tr, #state-table td {
@@ -73,8 +72,7 @@ body {
 	opacity: 0.8;
         top: 900px;
 	width: 900px;
-	left: 50%;
-	margin-left: -450px;
+	margin-left: 20px;
 	height: 40px;
 	border-radius: 6px;
 }
@@ -106,7 +104,9 @@ form {
 	padding:16px 31px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #2f6627;
-	margin-top: 50px;
+	position: absolute;
+	left: 0px;
+	top: 60px;
 }
 .myButton:hover {
 	background-color:#5cbf2a;

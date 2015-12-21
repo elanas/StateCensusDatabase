@@ -12,6 +12,10 @@ $(document).ready(function() {
 	                      if( !('error' in obj) ) {
 	                          $('#hover-state').text(obj.result.Name);
 				  $('#hover-pop').text("Population: " + numberWithCommas(obj.result.Population));
+				  $('#hover-income').text("Median Income: " + numberWithCommas(obj.result.MedianIncome));
+				  $('#hover-age').text("Median Age: " + obj.result.MedianAge);
+				  $('#hover-poverty').text("Num in Poverty: " + numberWithCommas(obj.result.NumPoverty));
+				  $('#hover-unemployed').text("Num Unemployed: " + numberWithCommas(obj.result.NumUnemployed));
 	                      }
 	                      else {
 	                          console.log(obj.error);
@@ -130,6 +134,8 @@ function submitQuery() {
                                   $('#query-answer').text(obj.result.Answer);
 				  for(i = 0; i < obj.result.length; i++) {
 					//answerString += "( ";
+					console.log(obj.result[i])
+					console.log("Keys: " + Object.keys(obj.result[i]).length)
 					for(c = 0; c < 1; c++) {i
 						answerString += obj.result[i]["Name"]
 					}

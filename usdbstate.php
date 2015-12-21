@@ -17,7 +17,7 @@ switch ($_POST['functionname']) {
 	case 'hover' :
 		$statename = $_POST["arguments"][0];
 
-		$query = "SELECT Name, Population FROM State WHERE Name='$statename';"; 
+		$query = "SELECT Name, Population, MedianIncome, MedianAge, NumPoverty, NumUnemployed FROM State WHERE Name='$statename';"; 
 		$result = mysql_query($query);
 		if(!$result) { 
 			$aResult['error'] = mysql_error(); 

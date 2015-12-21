@@ -21,6 +21,10 @@ body {
     padding: 10px;
 }
 
+.hover-text {
+	margin-bottom: 7px;
+}
+
 #hover-state {
     text-align: center;
     margin-bottom: 10px;

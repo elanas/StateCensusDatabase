@@ -29,23 +29,23 @@ switch ($_POST['functionname']) {
 
 	case 'click':
 		$statename = $_POST["arguments"][0];
-		//$query = "SELECT Name, Population FROM State S, County Co, City Ci, Budget B WHERE S.StateName='$statename' AND Co.StateID=S.StateID AND Ci.CountyID=Co.CountyID AND S.StateName = B.StateName;"; 
 		$querylist = array(
+			"SELECT '$statename' as selection;",
 			"SELECT Population as selection FROM State WHERE Name = '$statename';",
- 			"SELECT NumWhite/Population as selection FROM State WHERE Name = '$statename';",
- 			"SELECT NumBlack/Population as selection FROM State WHERE Name = '$statename';",
- 			"SELECT NumHispanic/Population as selection FROM State WHERE Name = '$statename';",
- 			"SELECT NumAsian/Population as selection FROM State WHERE Name = '$statename';",
- 			"SELECT NumOther/Population as selection FROM State WHERE Name = '$statename';",
- 			"SELECT NumPoverty/Population as selection FROM State WHERE Name = '$statename';",
- 			"SELECT (NumBachelors+NumMasters+NumProfessional+NumDoctorate))/Population as selection FROM State WHERE Name = '$statename';",
- 			"SELECT NumUnemployed/Population as selection FROM State WHERE Name = '$statename';",
-			"SELECT COUNT(Distinct CountyID) as selection FROM County WHERE StateName = '$statename';",
- 			"SELECT Name as selection FROM City WHERE StateID = (SELECT StateID FROM State WHERE Name = '$statename');",
- 			"SELECT Population as selection FROM City WHERE StateID = (SELECT StateID FROM State WHERE Name = '$statename');",
-			//"SELECT Name as selection FROM Governor WHERE StateName = '$statename';"); //governor
+ 			"SELECT 100 * NumWhite/Population as selection FROM State WHERE Name = '$statename';",
+ 			"SELECT 100 * NumBlack/Population as selection FROM State WHERE Name = '$statename';",
+ 			"SELECT 100 * NumHispanic/Population as selection FROM State WHERE Name = '$statename';",
+ 			"SELECT 100 * NumAsian/Population as selection FROM State WHERE Name = '$statename';",
+ 			"SELECT 100 * NumOther/Population as selection FROM State WHERE Name = '$statename';",
+ 			"SELECT 100 * NumPoverty/Population as selection FROM State WHERE Name = '$statename';",
+ 			"SELECT 100 * (NumBachelors+NumMasters+NumProfessional+NumDoctorate)/Population as selection FROM State WHERE Name = '$statename';",
+ 			"SELECT 100 * NumUnemployed/Population as selection FROM State WHERE Name = '$statename';",
+			"SELECT COUNT(*) as selection FROM County WHERE StateName like '%$statename%';",
+ 			"SELECT Name as selection FROM City WHERE StateID IN (SELECT StateID FROM State WHERE Name = '$statename');",
+ 			"SELECT Population as selection FROM City WHERE StateID IN (SELECT StateID FROM State WHERE Name = '$statename');",
+			"SELECT Name as selection FROM Governor WHERE StateName = '$statename';", 
  			"SELECT Value as selection FROM Budget WHERE BudgetItem = 'Total Revenue' AND StateName = '$statename';",
- 			"SELECT Value as selection FROM Budget WHERE BudgetItem = 'Total Expenditure' AND StateName = '$statename';",
+ 			"SELECT Value as selection FROM Budget WHERE BudgetItem = 'Total Expenditure' AND StateName = '$statename';");
 		$aResult['result'] = array();
 		$i = 0;
 		foreach($querylist as $query) {
@@ -56,10 +56,11 @@ switch ($_POST['functionname']) {
 				break; 
 			} else {
 				$row = mysql_fetch_assoc($result);
-				$aResult['result']['Query' . $i] = $row['selection'];		
+				$aResult['result']['Query' . $i] = $row['selection'];	
 			}
 		}
-			break;
+		break;
+
 	default:
 		$aResult['error'] = "Hit Default with " . $_POST_['funtionname'];
 		break;

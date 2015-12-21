@@ -37,8 +37,24 @@ $(document).ready(function() {
 	        success: function (obj) {
 	                      if( !('error' in obj) ) {
 	 			  console.log(obj.result)
-				  $('#click-state').text(obj.result.Query2);
-				  
+				  $('#click-state').text(obj.result.Query1);
+				  	$('#r1').text("Population: " + obj.result.Query2)
+				 	$('#r2').text("Percent White: " + obj.result.Query3 + "%")
+				 	$('#r3').text("Percent Black: " + obj.result.Query4 + "%")
+				 	$('#r4').text("Percent Hispanic: " + obj.result.Query5 + "%")
+				 	$('#r5').text("Percent Asian: " + obj.result.Query6 + "%")
+				 	$('#r6').text("Percent Other: " + obj.result.Query7 + "%")
+				 	$('#r7').text("Percent in Poverty: " + obj.result.Query8 + "%")
+				 	$('#r8').text("Percent W/ Degree: " + obj.result.Query9 + "%")
+				 	$('#r9').text("Percent Unemployed: " + obj.result.Query10 + "%")
+				 	$('#r10').text("Num Counties: " + numberWithCommas(obj.result.Query11))
+				 	$('#r11').text("Capital City: " + obj.result.Query12)
+				 	$('#r12').text("Capital City Pop.: " + numberWithCommas(obj.result.Query13))
+				 	$('#r13').text("Governor: " + obj.result.Query14)
+				 	$('#r14').text("Total State Revenue: " + numberWithCommas(obj.result.Query15))
+				  	$('#r15').text("Total State Expenditure: " + numberWithCommas(obj.result.Query16))
+									
+ 
 				  for (i = 0; i < 15; i++) {
 					$('#' + i.toString()).text("testint")
 				  }
@@ -57,8 +73,81 @@ $(document).ready(function() {
     });
   });
 
+function submitQuery() {
+	var queryString = "";
+
+	queryString += "SELECT ";
+
+	var select = $('#query-selector option:selected').val()
+
+	var from = $('#from-selector option:selected').val()
+
+	if(select == "ID") {
+		select = from + select
+	}
+
+	queryString += select
+	queryString += " FROM "
+	queryString += from
+
+	queryString += " WHERE "
+
+	var where = $('#where-selector option:selected').val()
+
+	if (where.indexOf("Percent") > -1) {
+		if (where == "PercentDegrees") {
+			where = "((NumBachelors + NumMasters + NumProfessional + NumDoctorate) / Population) * 100"
+		}
+		else if (where == "PercentPoverty") {
+			where = "(NumPoverty / Population) * 100"
+		}
+		else if (where == "PercentMinorities") {
+			where = "((NumBlack + NumHispanic) / Population) * 100"
+		}
+	}
+	queryString += where
+	
+	queryString += " "
+
+	var math = $('#math-selector option:selected').val()
+	queryString += math
+
+	queryString += " "
+
+	var num = $('#num-input').val()
+	queryString += num
+
+	queryString += ";"
+	console.log(queryString)
+	
+	//$.ajax({
+        //        type: "POST",
+        //        url: 'usdbstate.php',
+        //        dataType: 'json',
+        //        data: {functionname: 'custom', arguments: [stateDict[data.name]]},
+
+        //        success: function (obj) {
+        //                      if( !('error' in obj) ) {
+        //                          $('#query-answer').text(obj.result.Answer);
+        //                          console.log(obj.result)
+        //                      }
+        //                      else {
+        //                          console.log(obj.error);
+        //                          console.log("err")
+        //                      }
+        //        }, error: function (err) {
+        //                console.log(err.responseText)
+        //                console.log("error not success")
+        //        }
+        //    });
+
+	
+}
+
 function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    if(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 }
 
 var stateDict = {

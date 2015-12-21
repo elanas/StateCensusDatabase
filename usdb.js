@@ -28,7 +28,31 @@ $(document).ready(function() {
 	},
 	
 	click: function(event, data) {
-	    //$('#clicked-div').text('You clicked ' + data.name + "!")
+           $.ajax({
+	        type: "POST",
+	        url: 'usdbstate.php',
+	        dataType: 'json',
+	        data: {functionname: 'click', arguments: [stateDict[data.name]]},
+	    
+	        success: function (obj) {
+	                      if( !('error' in obj) ) {
+	 			  console.log(obj.result)
+				  $('#click-state').text(obj.result.Query2);
+				  
+				  for (i = 0; i < 15; i++) {
+					$('#' + i.toString()).text("testint")
+				  }
+	                      }
+	                      else {
+	                          console.log(obj.error);
+			       	  console.log("err")
+	                      }
+	        }, error: function (err) {
+			console.log(err.responseText)
+			console.log("error not success")
+		}
+	    });
+//$('#clicked-div').text('You clicked ' + data.name + "!")
 	}
     });
   });

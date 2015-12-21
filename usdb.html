@@ -18,7 +18,72 @@
 
 	    </div>
 	</div>
-	<div id="clicked-div" style="width: 200px; height: 200px;"></div>
+	<div id="clicked-div" style="width: 800px; height: 200px;">
+	     <div class="click-text" id="click-state"></div>
+             <table id="state-table" style="width:90%">
+                <tr>
+                  <td id="1"></td>
+                  <td id="2"></td>		
+                  <td id="3"></td>
+                </tr>
+                <tr>
+                  <td id="4"></td>
+                  <td id="5"></td>		
+                  <td id="6"></td>
+                </tr>
+                <tr>
+                  <td id="7"></td>
+                  <td id="8"></td>		
+                  <td id="9"></td>
+                </tr>
+		 <tr>
+                  <td id="10"></td>
+                  <td id="11"></td>		
+                  <td id="12"></td>
+                </tr>
+                <tr>
+                  <td id="13"></td>
+                  <td id="14"></td>		
+                  <td id="15"></td>
+                </tr>
+            </table>
+	</div>
+
+ 	<div id="query-builder">
+		<h5 class="select-text"> SELECT </h2>
+                <select id="query-selector">
+                    <option value="name">Name</option>
+                    <option value="id">ID</option>
+                </select>
+		<h5 class="select-text"> FROM </h5>
+		<select id="from-selector">
+                    <option value="State">States</option>
+                    <option value="County">Counties</option>
+                    <option value="City">Capitals</option>
+                </select>
+		<h5 class="select-text"> WHERE </h5>
+		<select id="where-selector">
+                    <option value="Population">Population</option>
+                    <option value="MedianIncome">Median Income</option>
+                    <option value="MedianAge">Median Age</option>
+                    <option value="PercentDegrees">Percent of People with Degrees</option>
+                    <option value="PercentPoverty">Percent of People living in Poverty</option>
+                    <option value="PercentMinorities">Percent of Minorities</option>
+                </select>
+		<select id="math-selector">
+			<option value="less">Less Than </option>
+			<option value="greater">Greater Than </option>
+			<option value="equal">Equals </option>
+		</select>
+
+		<form action="" method="POST">
+			<input type="text" id="num-input" name="num">
+		</form>
+		<input type="button" name="Submit" value="Submit" id="submitter">
+
+        </div>
+
+
 </body>
 </html>
 

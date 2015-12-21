@@ -27,6 +27,64 @@ body {
     font-weight: bold;
 }
 
+#clicked-div {
+	position: absolute;
+	top: 600px;
+        background-color: white;
+        border-radius: 3px;
+        opacity: 0.8;
+        left:50%;
+        margin-left: -400px;
+
+}
+
+#click-state {
+	font-weight: bold;
+        margin-top: 15px;
+	margin-left: 15px;
+}
+
+#state-table {
+	margin: auto;
+	margin-top: 15px;
+	border: 1px solid black;
+}
+
+#state-table tr, #state-table td {
+	border: 1px solid black;
+}
+
+#query-builder {
+	position: absolute;
+	background-color: green;
+	opacity: 0.8;
+        top: 900px;
+	width: 900px;
+	left: 50%;
+	margin-left: -450px;
+	height: 40px;
+}
+
+.select-text {
+	float: left;
+}
+
+form {
+	float: left;
+	margin-left: 5px;
+	margin-top: 20px;
+}
+
+#submitter {
+	margin-top: 20px;
+}
+
+#query-selector, #from-selector, #where-selector, #math-selector {
+	margin-left: 10px;
+	margin-top: 20px;	
+	float: left;
+}
+
 #map {
     display: inline-block;
 }

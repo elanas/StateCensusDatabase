@@ -1,0 +1,22 @@
+body {
+    background-color: #5F9EA0;
+}
+
+#map-row {
+    margin-left: 100px;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+#hover-div {
+    background-color: red;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 40px;
+    margin-bottom: 700px;
+}
+
+#map {
+    display: inline-block;
+}

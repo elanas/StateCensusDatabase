@@ -1,13 +1,20 @@
 <!doctype html>
 <html>
 <head>
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript"></script>
+	<script src="us-map/lib/raphael.js"></script>
+	<script src="us-map/jquery.usmap.js"></script>
 	<script src="usdb.js"></script>
+        <link rel="stylesheet" type="text/css" href="usdb.css">
+
 </head>
 
 <body>
-	<div id="map"></div>
-	<div id="clicked-state"></div>
-
+	<div id="map-row">
+	    <div id="map" style="width: 800px; height: 600px;"></div>
+	    <div id="hover-div" style="width: 200px; height: 200px;"></div>
+	</div>
+	<div id="clicked-div" style="width: 200px; height: 200px;"></div>
 </body>
 </html>
 
